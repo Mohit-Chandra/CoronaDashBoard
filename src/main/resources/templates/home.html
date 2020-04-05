@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>CoVid Tracker</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+
+<body class = "bg-info text-black">
+
+
+<div class ="container">
+
+<h1>CoronaVirusTracker App</h1>
+
+<div class="jumbotron" style="height: 300px;">
+    <h1 class="display-4" th:text="${totalReportedCases}"></h1>
+    <p class="lead">Total Cases Reported</p>
+    <hr class="my-4">
+    <p>
+        <span>New Cases Reported Since yesterday</span>
+        <strong><span th:text="${newCasesReported}"></span></strong>
+    </p>
+    <div>
+        <form action="#" th:action="@{/getDeathData}" method="get" >
+            <button type="submit" value="Submit" class="bg-danger">Click For Death Details</button>
+        </form>
+    </div>
+</div>
+    <div>
+        <h3>Search By Country</h3>
+        <form action="#" th:action="@{/findByCountry}" method="post">
+            <p>Country: <input type="text" th:value="${country}" th:name="country" /></p>
+            <p>
+                <input type="submit" value="Submit" />
+                <input type="reset" value="Reset" />
+            </p>
+        </form>
+    </div>
+
+<table class ="table table-bordered table-sm">
+    <thead class="thead-light">
+    <tr>
+        <th>State</th>
+        <th>Country</th>
+        <th>Total Cases Till Now</th>
+        <th>Changes Since Last Day</th>
+    </tr>
+    </thead>
+    <tr th:each="locationStat : ${locationStats}">
+        <td th:text="${locationStat.state}"></td>
+        <td th:text="${locationStat.country}"></td>
+        <td th:text="${locationStat.latestTotalCases}"></td>
+        <td th:text="${locationStat.diffFromPreviousDay}"></td>
+    </tr>
+</table>
+</div>
+
+</body>
+
+</html>

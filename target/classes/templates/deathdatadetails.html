@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Death Data</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+
+<body class = "bg-light text-black">
+
+
+<div class ="container">
+
+    <h1>CoronaVirus Death Details</h1>
+
+    <div class="jumbotron" style="height: 300px;">
+        <h1 class="display-4" th:text="${totalReportedCases}"></h1>
+        <p class="lead">Total Cases Reported</p>
+        <hr class="my-4">
+        <p>
+            <span>New Cases Reported Since yesterday</span>
+            <strong><span th:text="${newCasesReported}"></span></strong>
+        </p>
+    </div>
+
+    <table id = "dtBasicExample" class ="table table-bordered table-sm">
+        <thead class="thead-light">
+        <tr>
+            <th>State</th>
+            <th>Country</th>
+            <th>Deaths Till Now</th>
+            <th>Death Since Last Day</th>
+        </tr>
+        </thead>
+        <tr th:each="locationStat : ${locationStats}">
+            <td th:text="${locationStat.state}"></td>
+            <td th:text="${locationStat.country}"></td>
+            <td th:text="${locationStat.latestTotalCases}"></td>
+            <td th:text="${locationStat.diffFromPreviousDay}"></td>
+        </tr>
+    </table>
+</div>
+
+</body>
+
+<script>
+    $(document).ready(function () {
+    $('#dtBasicExample').DataTable();
+    $('.dataTables_length').addClass('bs-select');
+});
+</script>
+
+</html>
